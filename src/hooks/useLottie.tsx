@@ -25,6 +25,7 @@ const useLottie = <T extends RendererType = "svg">(
 ): { View: ReactElement } & LottieRefCurrentProps => {
   const {
     animationData,
+    path,
     loop,
     autoplay,
     initialSegment,
@@ -202,7 +203,7 @@ const useLottie = <T extends RendererType = "svg">(
     // Clean up on unmount
     return () => onUnmount?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animationData, loop]);
+  }, [animationData, path, loop]);
 
   // Update the autoplay state
   useEffect(() => {

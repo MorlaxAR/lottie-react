@@ -36,7 +36,6 @@ export type LottieOptions<T extends RendererType = "svg"> = Omit<
   AnimationConfigWithData<T>,
   "container" | "animationData"
 > & {
-  animationData: unknown;
   lottieRef?: LottieRef;
   onComplete?: AnimationEventCallback<
     AnimationEvents[AnimationEventName]
@@ -68,10 +67,18 @@ export type LottieOptions<T extends RendererType = "svg"> = Omit<
   onDestroy?: AnimationEventCallback<
     AnimationEvents[AnimationEventName]
   > | null;
-} & Omit<React.HTMLProps<HTMLDivElement>, "loop">;
+} & Omit<React.HTMLProps<HTMLDivElement>, "loop"> &
+  (
+    | { animationData: unknown; path?: never }
+    | { path: string; animationData?: never }
+  );
 
-export type PartialLottieOptions = Omit<LottieOptions, "animationData"> & {
+export type PartialLottieOptions = Omit<
+  LottieOptions,
+  "animationData" | "path"
+> & {
   animationData?: LottieOptions["animationData"];
+  path?: string;
 };
 
 // Interactivity
